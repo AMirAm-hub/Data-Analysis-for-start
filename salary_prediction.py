@@ -1,4 +1,7 @@
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.preprocessing import MinMaxScaler
+import seaborn as sns
+import numpy as np
 import pandas as pd
 ds = pd.read_csv('medium_dataset_1000.csv')
 # model = KNeighborsClassifier(n_neighbors=8)
@@ -47,30 +50,57 @@ ds = pd.read_csv('medium_dataset_1000.csv')
 # def ask_Q (age,purchase):
 #     return age,purchase
 
-
+ds = pd.read_csv("medium_dataset_1000.csv")
 
 ds = ds.dropna()
 
-def determine():
-    X = ds[['age','purchase_count']]
-    Y = ds['salary']
-    return X,Y
 
-def asle_kar (age,purchase_count):
-    X,Y = determine()
+def normalize_data(ds):
+
+    ds = ds.copy()
+
+    scaler = MinMaxScaler()
+
+    columns = ["age", "purchase_count"]
+
+    ds[columns] = scaler.fit_transform(ds[columns])
+
+    return ds, scaler
+
+
+def prepare_data():
+
+    normalized_ds, scaler = normalize_data(ds)
+
+    X = normalized_ds[["age", "purchase_count"]]
+
+    Y = ds["salary"]
+
+    return X, Y, scaler
+
+
+def predict_salary(age, purchase_count):
+
+    X, Y, scaler = prepare_data()
+
     model = KNeighborsRegressor(
-        n_neighbors=9
-    )
-    model.fit(X,Y)
-    new_guy =pd.DataFrame({
-        'age' : [age],
-        'purchase_count' :[purchase_count]
-    })
-    prediction = model.predict(new_guy)
-    return (f"Predicted salary: {prediction[0]:2f}")
+        n_neighbors=9)
 
-age = int(input("enter your age : "))
-purchase_count = int(input("enter your purchase_count : "))
-print(asle_kar(age,purchase_count))
+    model.fit(X, Y)
 
-    
+    new_user = pd.DataFrame({
+        "age": [age],"purchase_count": [purchase_count]})
+
+    new_user[["age", "purchase_count"]] = scaler.transform(new_user[["age", "purchase_count"]])
+
+    prediction = model.predict(new_user)
+
+    return f"Predicted salary: {prediction[0]:.2f}"
+
+
+age = int(input("Enter your age: "))
+
+purchase_count = int(input("Enter your purchase count: "))
+
+
+print(predict_salary(age,purchase_count))
