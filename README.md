@@ -27,14 +27,18 @@ KNeighborsRegressor(
 
 ## 🔄 How It Works
 
+## 🔄 How It Works
+
 The project follows these steps:
 
 1. Remove missing values from the dataset.
 2. Select `age` and `purchase_count` as input features.
 3. Select `salary` as the target.
-4. Train the KNN regression model.
-5. Ask the user for their age and purchase count.
-6. Predict the user's salary.
+4. Normalize the input features using `MinMaxScaler`.
+5. Train the KNN regression model using 9 nearest neighbors.
+6. Ask the user for their age and purchase count.
+7. Normalize the user's input using the same scaler.
+8. Predict the user's salary.
 
 ## 📊 Features
 
@@ -65,6 +69,8 @@ Predicted salary: 8015.56
 
 ## 📚 What I Learned
 
+## 📚 What I Learned
+
 Through this project, I practiced:
 
 * Working with Pandas DataFrames
@@ -72,6 +78,8 @@ Through this project, I practiced:
 * Splitting features and target variables
 * Using functions in Python
 * Working with parameters and return values
+* Normalizing data using `MinMaxScaler`
+* Understanding why normalization is important for KNN
 * Training a Machine Learning model
 * Making predictions with KNN Regression
 * Using Git and GitHub to manage projects
@@ -80,7 +88,7 @@ Through this project, I practiced:
 
 Some possible improvements for this project:
 
-* Normalize the features before using KNN.
+* Improve the model by splitting the dataset into training and testing sets.
 * Split the dataset into training and testing sets.
 * Evaluate the model using metrics such as MAE and RMSE.
 * Experiment with different values of `n_neighbors`.
