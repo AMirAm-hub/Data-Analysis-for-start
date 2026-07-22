@@ -1,3 +1,5 @@
+## Latest update
+Improved normalization in the KNN model.
 # KNN Salary Prediction
 
 A simple Machine Learning project that predicts a person's salary based on their age and purchase count using the K-Nearest Neighbors (KNN) algorithm.
